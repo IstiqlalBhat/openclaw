@@ -238,7 +238,8 @@ suite.define(() => {
           });
           const effort = composer.locator("[data-chat-thinking-select]");
           await expect.poll(() => effort.isVisible()).toBe(true);
-          expect(await effort.getAttribute("aria-disabled")).toBe("false");
+          // The model menu can be usable before initial chat history finishes loading.
+          await expect.poll(() => effort.getAttribute("aria-disabled")).toBe("false");
           await effort.click();
           await expect
             .poll(() => composer.locator("[data-chat-thinking-slider]").isEnabled())
